@@ -13,12 +13,10 @@ import java.util.Locale;
  */
 
 @Controller
-
-
 public class IndexController {
 
 
-    @RequestMapping(value = "/sdf", method = RequestMethod.GET)
+    @RequestMapping(value = "/ss", method = RequestMethod.GET)
     public ModelAndView home(Locale locale, Model model) {
         // (...)
 

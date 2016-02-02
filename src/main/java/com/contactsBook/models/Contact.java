@@ -5,9 +5,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 
-@Entity
-@Table(name = "CONTACT2")
-public class Contact implements Serializable {
+
+public class Contact{
 
     private long contact_id;
 
@@ -15,31 +14,9 @@ public class Contact implements Serializable {
     private HashSet<Integer> idSet = new HashSet<Integer>();
     private HashSet<String> telSet = new HashSet<String>();
 
-    public Contact(long contact_id, String firstName, String lastName, String tel) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        setTel(tel);
-        setContact_id(contact_id);
-
-    }
-
-    public Contact(String firstName, String lastName, String tel) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        setTel(tel);
 
 
-    }
 
-    public Contact() {
-
-
-    }
-
-
-    @Id
-    @GeneratedValue
-    @Column(name = "CONTACT_ID")
     public long getContact_id() {
         return contact_id;
     }
@@ -48,7 +25,7 @@ public class Contact implements Serializable {
         this.contact_id = id;
     }
 
-    @Column(name = "FIRSTNAME")
+
     public String getFirstName() {
         return firstName;
     }
@@ -69,14 +46,7 @@ public class Contact implements Serializable {
         return tel;
     }
 
-    public void setTel(String tel) {
-        if (telSet.contains(tel)) {
-            System.out.println("NOT UNIQUE TEL NUM");
-        } else {
-            this.tel = tel;
-            telSet.add(tel);
-        }
-    }
+    public void setTel(String tel) { this.tel = tel;}
 
     @Override
     public boolean equals(Object o) {
@@ -103,10 +73,14 @@ public class Contact implements Serializable {
         return result;
     }
 
+
     @Override
     public String toString() {
-        return String.format(
-                "\n MappedContact[id=%d, firstName='%s', lastName='%s'] ",
-                contact_id, firstName, lastName);
+        return "Contact{" +
+                "tel='" + tel + '\'' +
+                ", contact_id=" + contact_id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

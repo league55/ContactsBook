@@ -32,10 +32,14 @@ public class ContactServiceImpl implements ContactService {
 
 
 
-  //  @Transactional
+    @Transactional
     public void addContact(Contact c) {
-        MappedContact mappedContact = new MappedContact(c.getContact_id(),c.getFirstName(),c.getLastName(),c.getTel());
+        MappedContact mappedContact = new MappedContact();
 
+        mappedContact.setContact_id(c.getContact_id());
+        mappedContact.setFirstName(c.getFirstName());
+        mappedContact.setLastName(c.getLastName());
+        mappedContact.setTel(c.getTel());
         contactDao.saveContact(mappedContact);
 
     }
@@ -46,17 +50,6 @@ public class ContactServiceImpl implements ContactService {
     public void deleteContact(MappedContact mappedContact) {
 
         contactDao.removeContact(mappedContact);
-    }
-
-
-    @Transactional(readOnly = true)
-    public MappedContact getContactByID(Long id) {
-        return contactDao.getContact(id);
-    }
-
-    @Transactional(readOnly = true)
-    public MappedContact getContactByTel(String tel) {
-        return contactDao.getContact(tel);
     }
 
 

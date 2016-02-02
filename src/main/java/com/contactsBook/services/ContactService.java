@@ -10,9 +10,6 @@ public interface ContactService {
     void addContact(Contact contact);
     void deleteContact(MappedContact mappedContact);
 
-    MappedContact getContactByID(Long id);
-
-    MappedContact getContactByTel(String tel);
 
     List<Contact> getAllContacts();
 

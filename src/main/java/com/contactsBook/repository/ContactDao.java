@@ -10,9 +10,6 @@ public interface ContactDao {
 
     public void removeContact(MappedContact contact);
 
-    public MappedContact getContact(Long id);
-
-    public MappedContact getContact(String tel);
 
     public List<MappedContact> getAllContacts();
 

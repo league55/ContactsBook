@@ -12,16 +12,20 @@ import java.util.List;
 
 @Repository
 public class ContactRepository implements ContactDao {
-    private static final Logger log = Logger.getLogger(ContactRepository.class.getName());
+   // private static final Logger log = Logger.getLogger(ContactRepository.class.getName());
 
 
     @PersistenceContext
     EntityManager em;
 
 
-    @Transactional
+
     public boolean saveContact(MappedContact mappedContact) {
-        em.persist(mappedContact);
+
+     //   em.persist(em.merge(mappedContact));
+        em.persist((mappedContact));
+
+
         return true;
     }
 
@@ -32,27 +36,11 @@ public class ContactRepository implements ContactDao {
      }
 
 
-    public MappedContact getContact(Long id) {
-        MappedContact c = em.find(MappedContact.class, id);
-        return c;
-    }
 
-
-    public MappedContact getContact(String tel) {
-
-        MappedContact c = new MappedContact();
-        TypedQuery<MappedContact> query = em.createQuery("Select c FROM Contact c where c.tel = " + tel, MappedContact.class);
-        c = query.getResultList().get(0);
-
-        return c;
-    }
 
     @Transactional
     public List<MappedContact> getAllContacts() {
-        saveContact(new MappedContact("maixm","sadf","1123"));
-
-
-        return em.createQuery("SELECT mappedContact FROM MappedContact mappedContact").getResultList();
+       return em.createQuery("SELECT mappedContact FROM MappedContact mappedContact").getResultList();
     }
 
 
