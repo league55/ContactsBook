@@ -36,7 +36,7 @@ public class ContactServiceImpl implements ContactService {
     public void addContact(Contact c) {
         MappedContact mappedContact = new MappedContact();
 
-        mappedContact.setContact_id(c.getContact_id());
+
         mappedContact.setFirstName(c.getFirstName());
         mappedContact.setLastName(c.getLastName());
         mappedContact.setTel(c.getTel());
@@ -47,14 +47,30 @@ public class ContactServiceImpl implements ContactService {
 
 
     @Transactional
-    public void deleteContact(MappedContact mappedContact) {
-
-        contactDao.removeContact(mappedContact);
+    public void deleteContact(String tel) {
+        contactDao.removeContact(tel);
     }
 
 
+    public Contact getContact(String tel) {
+        Contact c = new Contact();
+        MappedContact mp = contactDao.getContact(tel);
 
+        c.setTel(mp.getTel());
+        c.setLastName(mp.getLastName());
+        c.setFirstName(mp.getFirstName());
 
+        return c;
+    }
+
+    @Transactional
+    public void updateContact(String oldTel, Contact c) {
+        MappedContact mappedContact = new MappedContact();
+        mappedContact.setFirstName(c.getFirstName());
+        mappedContact.setLastName(c.getLastName());
+        mappedContact.setTel(c.getTel());
+        contactDao.update(oldTel, mappedContact);
+    }
 
   //  @Transactional(readOnly = true)
     public List<Contact> getAllContacts() {
@@ -63,7 +79,7 @@ public class ContactServiceImpl implements ContactService {
         List<Contact> contacts = new ArrayList<Contact>(mappedContacts.size());
         for (MappedContact mappedContact : mappedContacts) {
             Contact contact = new Contact();
-            contact.setContact_id(mappedContact.getContact_id());
+
             contact.setFirstName(mappedContact.getFirstName());
             contact.setLastName(mappedContact.getLastName());
             contact.setTel(mappedContact.getTel());

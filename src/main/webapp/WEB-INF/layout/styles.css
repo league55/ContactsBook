@@ -1,0 +1,319 @@
+body {
+    background: #f0f0f0 url(../images/cream_dust.jpg);
+}
+
+fieldset {
+
+}
+
+.main {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 0 rgba(255, 255, 255, 0.7);
+}
+
+.main p {
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: justify;
+}
+
+.main p:nth-of-type(2) {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 20px;
+    -ms-column-count: 2;
+    -ms-column-gap: 20px;
+    -o-column-count: 2;
+    -o-column-gap: 20px;
+    column-count: 2;
+    column-gap: 20px;
+}
+
+.main p:nth-of-type(4) {
+    -moz-column-count: 3;
+    -moz-column-gap: 15px;
+    -o-column-count: 3;
+    -o-column-gap: 15px;
+    -ms-column-count: 3;
+    -ms-column-gap: 15px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 15px;
+    column-count: 3;
+    column-gap: 15px;
+}
+
+html {
+    height: 100%;
+}
+
+*,
+*:after,
+*:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: "Lato", Calibri, Arial, sans-serif;
+    background: #ddd;
+    font-weight: 300;
+    font-size: 15px;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+a {
+    color: #555;
+    text-decoration: none;
+
+}
+
+a.ref {
+    display: block;
+    padding: 40px 0;
+    color: #aaa;
+}
+
+strong {
+    font-weight: 700;
+}
+
+.appendix {
+    height: 24px;
+}
+
+.container {
+    width: 100%;
+    position: relative;
+}
+
+.clr {
+    clear: both;
+    padding: 0;
+    height: 0;
+    margin: 0;
+}
+
+.main {
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.container > header {
+    margin: 10px;
+    padding: 20px 10px 10px 10px;
+    position: relative;
+    display: block;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.container > header h1 {
+    font-size: 30px;
+    line-height: 38px;
+    margin: 0;
+    position: relative;
+    font-weight: 300;
+    color: #666;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.container > header h2 {
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+    padding: 15px 0 5px 0;
+    color: #666;
+    font-family: Cambria, Georgia, serif;
+    font-style: italic;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.codrops-top {
+    line-height: 24px;
+    font-size: 11px;
+    background: #c6c6c6;
+    background: rgba(174, 174, 174, 0.95);
+    text-transform: uppercase;
+    z-index: 9999;
+    position: relative;
+    font-family: Cambria, Georgia, serif;
+    box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.2);
+    margin-top: -24px;
+}
+
+.codrops-top a {
+    padding: 0px 10px;
+    letter-spacing: 1px;
+    color: #333;
+    display: inline-block;
+}
+
+.codrops-top a:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.codrops-top span.right {
+    float: right;
+}
+
+.codrops-top span.right a {
+    float: left;
+    display: block;
+}
+
+/* Demo Buttons Style */
+.codrops-demos {
+    text-align: center;
+    display: block;
+    line-height: 30px;
+    padding: 5px 0px;
+}
+
+.codrops-demos a {
+    display: inline-block;
+    margin: 0px 4px;
+    padding: 0px 6px;
+    color: #8c8c8c;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px #fff;
+    border: 1px solid #f8f8f8;
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* W3C */
+
+}
+
+.codrops-demos a:hover {
+    color: #333;
+    background: #fff;
+}
+
+.codrops-demos a:active {
+    background: #fff;
+}
+
+input {
+    font-family: Calibri, Arial;
+    margin: 0px;
+    padding: 0px;
+    max-width: 150px;
+
+}
+
+#header h2 {
+    color: white;
+    background-color: #3275A8;
+    height: 50px;
+    padding: 5px 0 0 5px;
+    font-size: 20px;
+}
+
+.datatable {
+    margin-bottom: 5px;
+    border: 1px solid #eee;
+
+    width: 400px;
+    max-width: 100%;
+    font-family: Calibri
+    border-radius: 3px;
+
+}
+
+.datatable th {
+    padding: 3px;
+    border: 1px solid #888;
+    height: 30px;
+    background-color: #B2D487;
+    text-align: center;
+    vertical-align: middle;
+    color: #444444
+}
+
+.datatable tr {
+    border: 2px solid #888
+}
+
+.datatable tr.odd {
+    background-color: #eee
+}
+
+.datatable td {
+    padding: 2px;
+    border: 1px solid #888
+}
+
+#content {
+    padding: 5px;
+    margin: 5px;
+    text-align: center
+}
+
+fieldset {
+    width: 300px;
+    padding: 5px;
+    margin-bottom: 0px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+.main h1 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-family: 'Ultra', sans-serif;
+    font-size: 36px;
+    line-height: 42px;
+    text-transform: uppercase;
+    text-shadow: 0 2px white, 0 3px #777;
+}
+
+.main h2 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 40px;
+    font-family: 'Orienta', sans-serif;
+}
+
+.main h3 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-size: 22px;
+    line-height: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-family: 'Orienta', sans-serif;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+.main h4 {
+    margin: 1em 0 0.5em 0;
+    color: #343434;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: normal;
+    font-family: 'Orienta', sans-serif;
+}

@@ -4,6 +4,8 @@ package com.contactsBook.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -11,15 +13,20 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MappedContact implements Serializable {
     @Id
-    @Column(name = "CONTACT_ID")
+    @GeneratedValue
+    @Column(name = "ID")
     private long contact_id;
 
+    @Size(min = 3, max = 15)
     @Column(name = "FIRSTNAME")
     private String firstName;
 
+    @Size(min = 3, max = 15)
     @Column(name = "LASTNAME")
     private String lastName;
 
+    @Size(min = 9, max = 12)
+    @NotNull
     @Column(name = "TEL")
     private String tel;
 

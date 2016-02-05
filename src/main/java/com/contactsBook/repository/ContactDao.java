@@ -6,12 +6,15 @@ import java.util.List;
 
 public interface ContactDao {
 
-    public boolean saveContact(MappedContact mappedContact);
+    boolean saveContact(MappedContact mappedContact);
 
-    public void removeContact(MappedContact contact);
+    MappedContact removeContact(String tel);
 
+    void update(String oldTel, MappedContact mappedContact);
 
-    public List<MappedContact> getAllContacts();
+    MappedContact getContact(String tel);
+
+    List<MappedContact> getAllContacts();
 
 
 }
