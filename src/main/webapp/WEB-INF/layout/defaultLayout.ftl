@@ -1,4 +1,5 @@
 <#macro myLayout title="Contacts Book">
+    <#import "/spring.ftl" as spring />
 
 <html>
 <head>
@@ -12,14 +13,18 @@
 </head>
 
 <body>
-<div class="container" style="min-height: 100%">
-    <!--  <#nested/> -->
-    <table>
-        <tr><#include "header.ftl"/></tr>
-        <tr><#include "userForm.ftl"/></tr>
-        <tr><#include "userList.ftl"/></tr>
 
-    </table>
+
+<form class="form-horizontal" method="POST" action="/test">
+
+    <div class="container" style="min-height: 100%">
+        <#nested/>
+
+      <#include "header.ftl"/>
+    <#include "userForm.ftl"/>
+     <#include "userList.ftl"/>
+
+
 </div>
 <div class="appendix"></div>
     <#include "footer.ftl"/>

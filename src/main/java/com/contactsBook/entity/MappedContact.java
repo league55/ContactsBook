@@ -2,6 +2,7 @@ package com.contactsBook.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,21 +13,24 @@ import java.io.Serializable;
 @Table(name = "MappedContact")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MappedContact implements Serializable {
+
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private long contact_id;
 
-    @Size(min = 3, max = 15)
+    @Size(max = 15, message = "Name must be shorter then 15 symbols")
+    @NotEmpty(message = "Name cannot be empty")
     @Column(name = "FIRSTNAME")
     private String firstName;
 
-    @Size(min = 3, max = 15)
+    @Size(max = 15, message = "Lastname must be shorter then 15 symbols")
+    @NotEmpty(message = "Lastname cannot be empty")
     @Column(name = "LASTNAME")
     private String lastName;
 
-    @Size(min = 9, max = 12)
-    @NotNull
+    @Size(min = 9, max = 12, message = "Phone must be from 9 to 11 characters")
+    @NotNull(message = "Phone cannot be empty")
     @Column(name = "TEL")
     private String tel;
 

@@ -3,12 +3,12 @@ package com.contactsBook.validator;
 import com.contactsBook.entity.MappedContact;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 
 /**
  * Created by mixmax on 05.02.16.
  */
-public class ContactValidator implements Validator {
+
+public class ContactValidator {
     public boolean supports(Class aClass) {
         return MappedContact.class.equals(aClass);
     }

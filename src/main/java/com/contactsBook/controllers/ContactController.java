@@ -1,5 +1,6 @@
 package com.contactsBook.controllers;
 
+import com.contactsBook.entity.MappedContact;
 import com.contactsBook.models.Contact;
 import com.contactsBook.services.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.validation.Valid;
@@ -23,27 +26,37 @@ import javax.validation.Valid;
 public class ContactController extends WebMvcConfigurerAdapter {
     @Autowired
     private ContactService contactService;
+
     @Autowired
-    private Validator validator;
+    Validator contactValidator;
 
-    @InitBinder(value = "authority")
-    private void initBinder(WebDataBinder binder) {
-        binder.setValidator(validator);
-    }
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public String test(Model model, @Valid MappedContact contact, BindingResult result) {
 
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/results").setViewName("results");
+        if (result.hasErrors()) {
+            for (ObjectError e : result.getAllErrors()) {
+                System.out.println(e.getDefaultMessage());
+            }
+
+            model.addAttribute("contact", contact);
+            model.addAttribute("errors", result.getAllErrors());
+            model.addAttribute("contacts", contactService.getAllContacts());
+            model.addAttribute("title", "The contacts list");
+            model.addAttribute("message", "Here you can see contacts list <br/> Spring.");
+            return "/home";
+        }
+        return "result";
     }
 
 
     @RequestMapping(value = "/home")
-    public ModelAndView index(ModelAndView mv) {
-        mv.addObject("title", "The contacts list");
-        mv.addObject("message", "Here you can see contacts list <br/> Spring.");
+    public String index(ModelAndView mv, Model m) {
+        m.addAttribute("title", "The contacts list");
+        m.addAttribute("message", "Here you can see contacts list <br/> Spring.");
+        m.addAttribute("contacts", contactService.getAllContacts());
         mv.addObject("contacts", contactService.getAllContacts());
-        mv.setViewName("home");
-
-        return mv;
+        m.addAttribute("contact", new MappedContact());
+        return "/home";
     }
 
     @RequestMapping(value = "/doEdit/{Contact.tel}", method = RequestMethod.POST)
@@ -80,7 +93,7 @@ public class ContactController extends WebMvcConfigurerAdapter {
 
         if (result.hasErrors()) {
             System.out.println("errors---------");
-            validator.validate(contact, errors);
+            //validator.validate(contact, errors);
             return "redirect:/home";
         }
 

@@ -22,8 +22,8 @@ import java.util.Map;
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.contactsBook.controllers")
-public class ServletConfig extends WebMvcConfigurerAdapter  {
-    @Bean(name ="freemarkerConfig")
+public class ServletConfig extends WebMvcConfigurerAdapter {
+    @Bean(name = "freemarkerConfig")
     public FreeMarkerConfigurer freemarkerConfig() {
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
         configurer.setTemplateLoaderPath("/WEB-INF/");
@@ -32,10 +32,12 @@ public class ServletConfig extends WebMvcConfigurerAdapter  {
         configurer.setFreemarkerVariables(map);
         return configurer;
     }
+
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.ignoreUnknownPathExtensions(false).defaultContentType(MediaType.TEXT_HTML);
     }
+
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         registry.freeMarker();

@@ -151,7 +151,7 @@ strong {
     position: relative;
     font-family: Cambria, Georgia, serif;
     box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.2);
-    margin-top: -24px;
+
 }
 
 .codrops-top a {
@@ -233,7 +233,7 @@ input {
 
     width: 400px;
     max-width: 100%;
-    font-family: Calibri
+    font-family: Calibri;
     border-radius: 3px;
 
 }
@@ -310,10 +310,8 @@ legend {
 }
 
 .main h4 {
-    margin: 1em 0 0.5em 0;
-    color: #343434;
-    font-size: 18px;
-    line-height: 20px;
+    color: #61241e;
+    font-size: 14px;
     font-weight: normal;
     font-family: 'Orienta', sans-serif;
 }
