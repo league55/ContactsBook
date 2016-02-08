@@ -14,6 +14,8 @@ public interface ContactDao {
 
     MappedContact getContact(String tel);
 
+    MappedContact getContact(Long id);
+
     List<MappedContact> getAllContacts();
 
 

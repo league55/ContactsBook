@@ -3,12 +3,14 @@
 
 <fieldset class="main">
     <legend>Get conversation with</legend>
-    <form action="/view/${tel}" modelAttribute="sender" method="get">
+    <form action="/view/${id}" modelAttribute="senderId" method="get">
 
-        <select name="sender" size="1">
-            <option value="default"> select contact</option>
-        <#list sendersTel as tel>
-            <option value="${tel}">${tel}</option>
+        <select name="senderId" size="1">
+            <option> select contact</option>
+        <#list senders as sender>
+
+            <option value="${sender.id}">${sender.tel}</option>
+
         </#list>
         </select>
         <input class="codrops-demos" type="submit" value="   Submit   "/></br>

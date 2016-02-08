@@ -1,13 +1,11 @@
 package com.contactsBook.repository.Impl;
 
-import com.contactsBook.entity.MappedContact;
 import com.contactsBook.entity.MappedMessege;
 import com.contactsBook.models.Messege;
 import com.contactsBook.repository.ContactDao;
 import com.contactsBook.repository.MessegeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,39 +25,35 @@ public class MessegeDaoImpl implements MessegeDao {
     ContactDao contactDao;
 
 
-    @Transactional
+
     public void storeMessege(Messege m) {
         MappedMessege mm = new MappedMessege();
-        MappedContact sender, acceptor;
 
-        acceptor = contactDao.getContact(m.getAcceptor().getTel());
-        sender = contactDao.getContact(m.getSender().getTel());
-        mm.setAcceptor(acceptor);
         mm.setTime(m.getTime());
-        mm.setSender(sender);
         mm.setContent(m.getContent());
+        mm.setRecieverId(m.getRecieverID());
+        mm.setSenderId(m.getSenderId());
         em.persist(mm);
     }
 
-    @SuppressWarnings("JpaQlInspection")
-    @Transactional
-    public List<MappedMessege> getConversation(String acceptorTel, String senderTel) {
-        MappedContact sender, acceptor;
 
-        sender = contactDao.getContact(senderTel);
-        acceptor = contactDao.getContact(acceptorTel);
-        Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege WHERE mappedMessege.acceptor=:acceptor AND mappedMessege.sender=:sender");
-        q.setParameter("acceptor", acceptor);
-        q.setParameter("sender", sender);
+    public List<MappedMessege> getConversation(Long recieverId, Long senderId) {
+
+        Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege WHERE mappedMessege.recieverId=:recieverid AND mappedMessege.senderId=:senderid");
+        q.setParameter("recieverid", recieverId);
+        q.setParameter("senderid", senderId);
         return q.getResultList();
     }
 
-    public List<MappedMessege> getAllMsg(String acceptorTel) {
-        MappedContact acceptor = contactDao.getContact(acceptorTel);
+    public List<MappedMessege> getAllMsg(Long recieverId) {
+        Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege");
 
-        Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege WHERE mappedMessege.acceptor=:acceptor");
-        q.setParameter("acceptor", acceptor);
+     /*   Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege WHERE mappedMessege.recieverid=:recieverid");
+        q.setParameter("recieverid", recieverId);
+     */
         return q.getResultList();
     }
+
+
 }
 

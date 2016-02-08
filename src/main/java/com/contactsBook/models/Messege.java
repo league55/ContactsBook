@@ -8,9 +8,9 @@ import java.util.Date;
 public class Messege {
 
     private Date time = new Date();
-    private Contact sender;
-    private Contact acceptor;
+
     private String content;
+    private Long senderId, recieverID;
 
     public Date getTime() {
         return time;
@@ -18,22 +18,6 @@ public class Messege {
 
     public void setTime(Date time) {
         this.time = time;
-    }
-
-    public Contact getSender() {
-        return sender;
-    }
-
-    public void setSender(Contact sender) {
-        this.sender = sender;
-    }
-
-    public Contact getAcceptor() {
-        return acceptor;
-    }
-
-    public void setAcceptor(Contact acceptor) {
-        this.acceptor = acceptor;
     }
 
     public String getContent() {
@@ -44,27 +28,42 @@ public class Messege {
         this.content = content;
     }
 
+    public Long getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
+    }
+
+    public Long getRecieverID() {
+        return recieverID;
+    }
+
+    public void setRecieverID(Long recieverID) {
+        this.recieverID = recieverID;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Messege messege1 = (Messege) o;
+        Messege messege = (Messege) o;
 
-        if (!time.equals(messege1.time)) return false;
-        if (sender != null ? !sender.equals(messege1.sender) : messege1.sender != null) return false;
-        if (acceptor != null ? !acceptor.equals(messege1.acceptor) : messege1.acceptor != null) return false;
-        return content.equals(messege1.content);
+        if (time != null ? !time.equals(messege.time) : messege.time != null) return false;
+        if (content != null ? !content.equals(messege.content) : messege.content != null) return false;
+        if (senderId != null ? !senderId.equals(messege.senderId) : messege.senderId != null) return false;
+        return recieverID != null ? recieverID.equals(messege.recieverID) : messege.recieverID == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = time.hashCode();
-        result = 31 * result + (sender != null ? sender.hashCode() : 0);
-        result = 31 * result + (acceptor != null ? acceptor.hashCode() : 0);
-        result = 31 * result + content.hashCode();
+        int result = time != null ? time.hashCode() : 0;
+        result = 31 * result + (content != null ? content.hashCode() : 0);
+        result = 31 * result + (senderId != null ? senderId.hashCode() : 0);
+        result = 31 * result + (recieverID != null ? recieverID.hashCode() : 0);
         return result;
     }
 
@@ -72,9 +71,9 @@ public class Messege {
     public String toString() {
         return "Messege{" +
                 "time=" + time +
-                ", sender=" + sender +
-                ", acceptor=" + acceptor +
                 ", content='" + content + '\'' +
+                ", senderId=" + senderId +
+                ", recieverID=" + recieverID +
                 '}';
     }
 }

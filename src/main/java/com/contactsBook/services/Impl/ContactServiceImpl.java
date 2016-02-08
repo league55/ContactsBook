@@ -72,6 +72,14 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Transactional
+    public Contact getContact(Long id) {
+
+        MappedContact mp = contactDao.getContact(id);
+        Contact c = new Contact(mp);
+        return c;
+    }
+
+    @Transactional
     public void updateContact(String oldTel, MappedContact c) {
        /* MappedContact mappedContact = new MappedContact();
         mappedContact.setFirstName(c.getFirstName());
@@ -80,17 +88,14 @@ public class ContactServiceImpl implements ContactService {
         contactDao.update(oldTel, c);
     }
 
-  //  @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<Contact> getAllContacts() {
 
         List<MappedContact> mappedContacts = contactDao.getAllContacts();
         List<Contact> contacts = new ArrayList<Contact>(mappedContacts.size());
         for (MappedContact mappedContact : mappedContacts) {
-            Contact contact = new Contact();
+            Contact contact = new Contact(mappedContact);
 
-            contact.setFirstName(mappedContact.getFirstName());
-            contact.setLastName(mappedContact.getLastName());
-            contact.setTel(mappedContact.getTel());
             System.out.println(contact.toString());
             contacts.add(contact);
         }
@@ -109,10 +114,11 @@ public class ContactServiceImpl implements ContactService {
         return s;
     }
 
-    public String sendMessege(String acceptorTel, String senderTel, String content) {
+    @Transactional
+    public String sendMessege(Long recieverId, Long senderId, String content) {
         Messege m = new Messege();
-        m.setSender(getContact(senderTel));
-        m.setAcceptor(getContact(acceptorTel));
+        m.setSenderId(senderId);
+        m.setRecieverID(recieverId);
         m.setTime(new Date());
         m.setContent(content);
 
@@ -120,16 +126,18 @@ public class ContactServiceImpl implements ContactService {
         return m.getContent();
     }
 
-    public List<MappedMessege> getConversation(String acceptorTel, String senderTel) {
+    @Transactional(readOnly = true)
+    public List<MappedMessege> getConversation(Long resieverId, Long senderId) {
 
 
-        List<MappedMessege> toReturn = messegeDao.getConversation(acceptorTel, senderTel);
+        List<MappedMessege> toReturn = messegeDao.getConversation(resieverId, senderId);
 
         return toReturn;
     }
 
-    public List<MappedMessege> getAllMsg(String acceptorTel) {
-        return messegeDao.getAllMsg(acceptorTel);
+    @Transactional(readOnly = true)
+    public List<MappedMessege> getAllMsg(Long recieverId) {
+        return messegeDao.getAllMsg(recieverId);
     }
     public void setMAX_CONTACTS_NUM(int MAX_CONTACTS_NUM) {
         this.MAX_CONTACTS_NUM = MAX_CONTACTS_NUM;

@@ -10,8 +10,9 @@ public interface MessegeDao {
 
     void storeMessege(Messege m);
 
-    List<MappedMessege> getConversation(String acceptorTel, String senderTel);
+    List<MappedMessege> getConversation(Long recieverId, Long senderId);
 
-    List<MappedMessege> getAllMsg(String acceptorTel);
+    List<MappedMessege> getAllMsg(Long recieverId);
+
 
 }

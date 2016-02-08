@@ -1,4 +1,6 @@
 <div>
+<#if messeges??>
+
     <table class="main" id="dataTable" border="1">
         <thead>
         <tr>
@@ -12,10 +14,12 @@
 
         <tbody>
 
+            <#assign name=names/>
         <#list messeges as messege>
 
+
         <tr>
-            <td width="100px">From ${messege.sender.firstName}:</td>
+            <td width="100px">From ${names[0]}  ${name[0]} :</td>
             <td width="200px">${messege.content}</td>
             <td>${messege.time}</td>
 
@@ -24,4 +28,6 @@
 
         </tbody>
     </table>
+
+</#if>
 </div>

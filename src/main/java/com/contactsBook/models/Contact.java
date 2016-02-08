@@ -3,20 +3,22 @@ package com.contactsBook.models;
 
 import com.contactsBook.entity.MappedContact;
 
-import java.util.HashSet;
-
 
 public class Contact{
 
 
 
     private String firstName, lastName, tel;
-    private HashSet<Integer> idSet = new HashSet<Integer>();
-    private HashSet<String> telSet = new HashSet<String>();
 
+    private Long id;
 
+    public Long getId() {
+        return id;
+    }
 
-
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -50,6 +52,7 @@ public class Contact{
         this.setFirstName(mp.getFirstName());
         this.setLastName(mp.getLastName());
         this.setTel(mp.getTel());
+        this.setId(mp.getContact_id());
     }
 
     @Override
@@ -61,7 +64,8 @@ public class Contact{
 
         if (firstName != null ? !firstName.equals(contact.firstName) : contact.firstName != null) return false;
         if (lastName != null ? !lastName.equals(contact.lastName) : contact.lastName != null) return false;
-        return tel != null ? tel.equals(contact.tel) : contact.tel == null;
+        if (tel != null ? !tel.equals(contact.tel) : contact.tel != null) return false;
+        return id != null ? id.equals(contact.id) : contact.id == null;
 
     }
 
@@ -70,6 +74,7 @@ public class Contact{
         int result = firstName != null ? firstName.hashCode() : 0;
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (tel != null ? tel.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
 

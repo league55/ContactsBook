@@ -4,9 +4,9 @@ import com.contactsBook.entity.MappedContact;
 import com.contactsBook.repository.ContactDao;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -81,10 +81,23 @@ public class ContactDaoImpl implements ContactDao {
         return mp;
     }
 
+    public MappedContact getContact(Long id) {
+        MappedContact mp;
+        try {
+            mp = (MappedContact) em.createQuery("SELECT m FROM MappedContact m where m.id=:id").setParameter("id", id).getSingleResult();
+        } catch (NoResultException e) {
+            mp = null;
+            System.out.println("ACCOUNT WASN'T FOUND");
+        } catch (NonUniqueResultException e) {
+
+            List<MappedContact> ll = em.createQuery("SELECT m FROM MappedContact m where m.id=:id").setParameter("id", id).getResultList();
+
+            mp = ll.get(0);
+        }
+        return mp;
+    }
 
 
-
-    @Transactional
     public List<MappedContact> getAllContacts() {
 
 

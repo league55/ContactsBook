@@ -1,22 +1,23 @@
 package com.contactsBook.controllers;
 
 import com.contactsBook.entity.MappedContact;
-import com.contactsBook.entity.MappedMessege;
 import com.contactsBook.models.Contact;
 import com.contactsBook.services.ContactService;
-import com.contactsBook.validator.ContactValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.List;
 
 /**
  *
@@ -24,15 +25,9 @@ import java.util.*;
 @Controller
 public class ContactController extends WebMvcConfigurerAdapter {
 
+    @Autowired
     private ContactService contactService;
 
-
-    @Autowired
-    public ContactController(ContactService contactService, ContactValidator contactValidator) {
-        this.contactService = contactService;
-
-
-    }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     public String test(Model model, @Valid MappedContact contact, BindingResult result) {
@@ -67,16 +62,15 @@ public class ContactController extends WebMvcConfigurerAdapter {
         mv.addObject("contacts", allContacts);
         m.addAttribute("contact", new MappedContact());
 
-       /*String acceptorTel = allContacts.get(2).getTel();
-       String senderTel = allContacts.get(3).getTel();
-       contactService.sendMessege(acceptorTel,senderTel,"Hello");
-       contactService.sendMessege(senderTel,acceptorTel,"testing");
-       contactService.sendMessege(acceptorTel,senderTel,"How are you");
-       contactService.sendMessege(senderTel,acceptorTel,"come on");
-       contactService.sendMessege(acceptorTel,senderTel,"i'm fine, thx");
-       contactService.sendMessege(acceptorTel,senderTel,"testing");
+/*
 
+       contactService.sendMessege(1L,2L,"1");
+       contactService.sendMessege(2L,1L,"2 - testing");
+       contactService.sendMessege(1L,2L,"3");
+       contactService.sendMessege(2L,1L,"4 - testing");
 */
+
+
         return "/home";
     }
 
@@ -87,14 +81,11 @@ public class ContactController extends WebMvcConfigurerAdapter {
 
 
         if (result.hasErrors()) {
-            System.out.println("errors---------");
-
+            System.out.println("errors-in-form");
             return "redirect:/home";
         }
-
         System.out.println("--------" + result.getTarget().toString() + "-----------");
         this.contactService.addContact(contact);
-
         return "redirect:/home/";
         }
 
@@ -136,11 +127,7 @@ public class ContactController extends WebMvcConfigurerAdapter {
     @RequestMapping(value = "/doEdit/{Contact.tel}", method = RequestMethod.POST)
     public String doEdit(@ModelAttribute("contact") MappedContact contact, @PathVariable("Contact.tel") String oldTel, ModelAndView mv, BindingResult result) {
 
-        if (result.hasErrors()) {
-            System.out.println("errors---------");
 
-            // return "redirect:/doEdit/{Contact.tel}";
-        }
         System.out.println(oldTel + contact.toString());
         contactService.updateContact(oldTel, contact);
         mv.addObject("title", "The contacts list");
@@ -151,52 +138,7 @@ public class ContactController extends WebMvcConfigurerAdapter {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/view/{tel}")
-    public ModelAndView viewContact(@PathVariable("tel") String tel, @RequestParam(value = "sender", defaultValue = "") String senderTel, ModelAndView mv, Model m) {
 
-
-        Contact sender = new Contact();
-        if (contactService.getContact(tel) != null) {
-            sender = contactService.getContact(tel);
-        }
-        MappedMessege mm = new MappedMessege();
-        MappedContact mappedSender = new MappedContact();
-        mappedSender.setFirstName(sender.getFirstName());
-        mappedSender.setLastName(sender.getLastName());
-        mappedSender.setTel(sender.getTel());
-
-        List<String> sendersTel = new ArrayList<String>();
-        for (Contact c : contactService.getAllContacts()) {
-            sendersTel.add(c.getTel());
-        }
-
-        if (sendersTel.contains(senderTel)) {
-            SortedSet<MappedMessege> l = new TreeSet<MappedMessege>();
-            List<MappedMessege> full = contactService.getConversation(tel, senderTel);
-            full.addAll(contactService.getConversation(senderTel, tel));
-
-            Collections.sort(full);
-            mv.addObject("messeges", full);
-        } else {
-            mv.addObject("messeges", contactService.getAllMsg(tel));
-        }
-
-
-        mm.setSender(mappedSender);
-        mv.addObject("sender", mappedSender);
-
-        mv.addObject("sendersTel", sendersTel);
-        mv.addObject("theContact", sender);
-        mv.addObject("title", "Contact page");
-        mv.addObject("contacts", contactService.getAllContacts());
-        mv.addObject("messege", mm);
-        mv.addObject("acceptorTel", "");
-        mv.setViewName("viewContact");
-        m.addAttribute("content", "");
-
-        return mv;
-
-    }
 
 
 }

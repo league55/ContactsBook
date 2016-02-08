@@ -22,15 +22,14 @@ public class MappedMessege implements Serializable, Comparable<MappedMessege> {
     @Column(name = "TIME")
     private Date time;
 
-
-    @Column(name = "SENDER")
-    private MappedContact sender;
-
-    @Column(name = "ACCEPTOR")
-    private MappedContact acceptor;
-
     @Column(name = "CONTENT")
     private String content;
+
+    @Column(name = "SENDERID")
+    private Long senderId;
+
+    @Column(name = "RECIEVERID")
+    private Long recieverId;
 
     public Date getTime() {
         return time;
@@ -40,28 +39,28 @@ public class MappedMessege implements Serializable, Comparable<MappedMessege> {
         this.time = time;
     }
 
-    public MappedContact getSender() {
-        return sender;
-    }
-
-    public void setSender(MappedContact sender) {
-        this.sender = sender;
-    }
-
-    public MappedContact getAcceptor() {
-        return acceptor;
-    }
-
-    public void setAcceptor(MappedContact acceptor) {
-        this.acceptor = acceptor;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
+    }
+
+    public Long getRecieverId() {
+        return recieverId;
+    }
+
+    public void setRecieverId(Long recieverId) {
+        this.recieverId = recieverId;
     }
 
 
@@ -73,35 +72,33 @@ public class MappedMessege implements Serializable, Comparable<MappedMessege> {
         MappedMessege that = (MappedMessege) o;
 
         if (id != that.id) return false;
-        if (!time.equals(that.time)) return false;
-        if (sender != null ? !sender.equals(that.sender) : that.sender != null) return false;
-        if (acceptor != null ? !acceptor.equals(that.acceptor) : that.acceptor != null) return false;
-        return content.equals(that.content);
+        if (time != null ? !time.equals(that.time) : that.time != null) return false;
+        if (content != null ? !content.equals(that.content) : that.content != null) return false;
+        if (senderId != null ? !senderId.equals(that.senderId) : that.senderId != null) return false;
+        return recieverId != null ? recieverId.equals(that.recieverId) : that.recieverId == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + time.hashCode();
-        result = 31 * result + (sender != null ? sender.hashCode() : 0);
-        result = 31 * result + (acceptor != null ? acceptor.hashCode() : 0);
-        result = 31 * result + content.hashCode();
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        result = 31 * result + (content != null ? content.hashCode() : 0);
+        result = 31 * result + (senderId != null ? senderId.hashCode() : 0);
+        result = 31 * result + (recieverId != null ? recieverId.hashCode() : 0);
         return result;
     }
 
     @Override
-    public String
-    toString() {
+    public String toString() {
         return "MappedMessege{" +
                 "id=" + id +
                 ", time=" + time +
-                ", sender=" + sender +
-                ", acceptor=" + acceptor +
                 ", content='" + content + '\'' +
+                ", senderId=" + senderId +
+                ", recieverId=" + recieverId +
                 '}';
     }
-
 
     public int compareTo(MappedMessege o) {
         return getTime().compareTo(o.getTime());

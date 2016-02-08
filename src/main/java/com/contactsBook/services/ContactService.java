@@ -14,12 +14,14 @@ public interface ContactService {
 
     Contact getContact(String tel);
 
+    Contact getContact(Long id);
+
     void updateContact(String tel, MappedContact contact);
     List<Contact> getAllContacts();
 
-    String sendMessege(String tel1, String tel2, String content);
+    String sendMessege(Long acceptorId, Long senderId, String content);
 
-    List<MappedMessege> getConversation(String tel1, String tel2);
+    List<MappedMessege> getConversation(Long acceptorId, Long senderId);
 
-    List<MappedMessege> getAllMsg(String acceptorTel);
+    List<MappedMessege> getAllMsg(Long recieverId);
 }

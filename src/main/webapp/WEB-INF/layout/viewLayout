@@ -12,14 +12,16 @@
 </head>
 
 <body>
-<h2>Welcome ${sender.firstName}</h2>
-<p>this is your personal page, </br> here you can send messeges </br> and look through inbox mess</p>
 
 <div class="container">
     <!--  <#nested/> -->
     <table>
         <tr><#include "parts/header.ftl"/></tr>
+        <div style="margin:auto"><h2>Welcome ${theContact.firstName}</h2>
+            <p>this is your personal page, </br> here you can send messeges </br> and look through inbox mess</p>
+        </div>
         <tr><#include "parts/editForm.ftl"/></tr>
+        <tr><#include "parts/composeMessege.ftl"/></tr>
         <tr><#include "parts/setConversators.ftl"/></tr>
         <tr><#include "parts/getConversation.ftl"/></tr>
         <tr><#include "parts/footer.ftl"/></tr>
