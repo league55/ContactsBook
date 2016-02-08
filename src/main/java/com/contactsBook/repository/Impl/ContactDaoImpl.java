@@ -1,6 +1,7 @@
-package com.contactsBook.repository;
+package com.contactsBook.repository.Impl;
 
 import com.contactsBook.entity.MappedContact;
+import com.contactsBook.repository.ContactDao;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +12,8 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class ContactRepository implements ContactDao {
-   // private static final Logger log = Logger.getLogger(ContactRepository.class.getName());
+public class ContactDaoImpl implements ContactDao {
+    // private static final Logger log = Logger.getLogger(ContactDaoImpl.class.getName());
 
 
     @PersistenceContext

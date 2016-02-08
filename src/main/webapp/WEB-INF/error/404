@@ -1,10 +1,11 @@
 <#macro myLayout title="Contacts Book">
     <#import "/spring.ftl" as spring />
+
 <html>
 <head>
     <link rel="shortcut icon" href="../favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Ultra|Orienta' rel='stylesheet' type='text/css'>
-    <script src="js/modernizr.custom.63321.js"></script>
+    <script src="../js/modernizr.custom.63321.js"></script>
     <title>
     ${title}
     </title>
@@ -12,18 +13,19 @@
 </head>
 
 <body>
-<div class="container">
-    <!--  <#nested/> -->
-    <table>
-        <tr><#include "parts/header.ftl"/></tr>
-        <tr><#include "parts/editForm.ftl"/></tr>
-        <tr><#include "parts/userList.ftl"/></tr>
-        <tr><#include "parts/footer.ftl"/></tr>
 
 
-    </table>
-</div>
-<div class="appendix"/>
-    <#include "parts/footer.ftl"/>
+<form class="form-horizontal" method="POST" action="/test">
+
+    <div class="container" style="min-height: 100%">
+        <#nested/>
+
+      <#include "../layout/parts/header.ftl"/>
+
+
+    </div>
+    <div class="appendix"></div>
+    <#include "../layout/parts/footer.ftl"/>
+</body>
 </html>
 </#macro>

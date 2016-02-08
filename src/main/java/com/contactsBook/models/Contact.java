@@ -1,6 +1,8 @@
 package com.contactsBook.models;
 
 
+import com.contactsBook.entity.MappedContact;
+
 import java.util.HashSet;
 
 
@@ -36,7 +38,19 @@ public class Contact{
         return tel;
     }
 
-    public void setTel(String tel) { this.tel = tel;}
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public Contact() {
+    }
+
+    public Contact(MappedContact mp) {
+
+        this.setFirstName(mp.getFirstName());
+        this.setLastName(mp.getLastName());
+        this.setTel(mp.getTel());
+    }
 
     @Override
     public boolean equals(Object o) {

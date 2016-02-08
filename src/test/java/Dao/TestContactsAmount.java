@@ -4,12 +4,12 @@ package Dao;
 @Ignore
 public class TestContactsAmount {
     int MaxContacts;
-    ContactRepository base;
+    ContactDaoImpl base;
 
     @Before
     public void setUp() {
         MaxContacts = 5;
-        base = new ContactRepository();
+        base = new ContactDaoImpl();
 
     }
 

@@ -1,5 +1,5 @@
 <#macro myLayout title="Contacts Book">
-    <#import "/spring.ftl" as spring />
+
 <html>
 <head>
     <link rel="shortcut icon" href="../favicon.ico">
@@ -12,12 +12,16 @@
 </head>
 
 <body>
+<h2>Welcome ${sender.firstName}</h2>
+<p>this is your personal page, </br> here you can send messeges </br> and look through inbox mess</p>
+
 <div class="container">
     <!--  <#nested/> -->
     <table>
         <tr><#include "parts/header.ftl"/></tr>
         <tr><#include "parts/editForm.ftl"/></tr>
-        <tr><#include "parts/userList.ftl"/></tr>
+        <tr><#include "parts/setConversators.ftl"/></tr>
+        <tr><#include "parts/getConversation.ftl"/></tr>
         <tr><#include "parts/footer.ftl"/></tr>
 
 

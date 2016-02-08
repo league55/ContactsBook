@@ -9,7 +9,7 @@
     <title>
     ${title}
     </title>
-    <style type="text/css"><#include "styles.css"><#include "table.css"></style>
+    <style type="text/css"><#include "../css/styles.css"><#include "../css/table.css"></style>
 </head>
 
 <body>
@@ -20,14 +20,14 @@
     <div class="container" style="min-height: 100%">
         <#nested/>
 
-      <#include "header.ftl"/>
-    <#include "userForm.ftl"/>
-     <#include "userList.ftl"/>
+      <#include "parts/header.ftl"/>
+    <#include "parts/userForm.ftl"/>
+     <#include "parts/userList.ftl"/>
 
 
 </div>
 <div class="appendix"></div>
-    <#include "footer.ftl"/>
+    <#include "parts/footer.ftl"/>
 </body>
 </html>
 </#macro>

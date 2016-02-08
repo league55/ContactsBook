@@ -22,6 +22,7 @@
             <td>${Contact.tel}</td>
             <td><a href="/delete/${Contact.tel}">Delete</a></td>
             <td><a href="/edit/${Contact.tel}">Edit</a></td>
+            <td><a href="/view/${Contact.tel}">View</a></td>
         <tr>
         </#list>
 

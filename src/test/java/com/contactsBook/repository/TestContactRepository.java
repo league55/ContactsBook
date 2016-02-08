@@ -2,7 +2,7 @@ package com.contactsBook.repository;
 /*
 import com.contactsBook.entity.MappedContact;
 import com.contactsBook.services.ContactService;
-import com.contactsBook.services.ContactServiceImpl;
+import com.contactsBook.services.Impl.ContactServiceImpl;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;

@@ -14,6 +14,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MappedContact implements Serializable {
 
+
     @Id
     @GeneratedValue
     @Column(name = "ID")
@@ -68,6 +69,7 @@ public class MappedContact implements Serializable {
         this.tel = tel;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,19 +77,17 @@ public class MappedContact implements Serializable {
 
         MappedContact that = (MappedContact) o;
 
-        if (contact_id != that.contact_id) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        return tel != null ? tel.equals(that.tel) : that.tel == null;
+        return tel.equals(that.tel);
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (contact_id ^ (contact_id >>> 32));
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        int result = firstName != null ? firstName.hashCode() : 0;
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (tel != null ? tel.hashCode() : 0);
+        result = 31 * result + tel.hashCode();
         return result;
     }
 

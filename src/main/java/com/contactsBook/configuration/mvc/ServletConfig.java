@@ -30,6 +30,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("xml_escape", new XmlEscape());
         configurer.setFreemarkerVariables(map);
+
         return configurer;
     }
 
