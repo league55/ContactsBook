@@ -23,18 +23,12 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
 
 
-    @Autowired
-    private ContactDao contactDao;
-
-    @Autowired
-    private MessegeDao messegeDao;
-
-
     private static final Logger log = Logger.getLogger(ContactServiceImpl.class.getName());
     public static int currentContactsNum = 0;
-
-
-
+    @Autowired
+    private ContactDao contactDao;
+    @Autowired
+    private MessegeDao messegeDao;
     private int MAX_CONTACTS_NUM; //should be final
     private List<MappedContact> base = new ArrayList<MappedContact>();
 
@@ -80,7 +74,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Transactional
-    public void updateContact(String oldTel, MappedContact c) {
+    public void updateContact(String oldTel, Contact c) {
        /* MappedContact mappedContact = new MappedContact();
         mappedContact.setFirstName(c.getFirstName());
         mappedContact.setLastName(c.getLastName());

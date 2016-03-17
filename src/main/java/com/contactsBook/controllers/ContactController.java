@@ -1,22 +1,20 @@
 package com.contactsBook.controllers;
 
-import com.contactsBook.entity.MappedContact;
 import com.contactsBook.models.Contact;
 import com.contactsBook.services.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -29,116 +27,92 @@ public class ContactController extends WebMvcConfigurerAdapter {
     private ContactService contactService;
 
 
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public String test(Model model, @Valid MappedContact contact, BindingResult result) {
+    //-------------------Retrieve All Contacts
+    @RequestMapping(value = "/contact/", method = RequestMethod.GET)
+    public ResponseEntity<List<Contact>> listAllcontacts() {
+        List<Contact> contacts = contactService.getAllContacts();
+        if (contacts.isEmpty()) {
+            return new ResponseEntity<List<Contact>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Contact>>(contacts, HttpStatus.OK);
+    }
 
-        if (result.hasErrors()) {
-            for (ObjectError e : result.getAllErrors()) {
-                System.out.println(e.getDefaultMessage());
-            }
+    //-------------------Retrieve Single contact--------------------------------------------------------
 
-            model.addAttribute("contact", contact);
-            model.addAttribute("errors", result.getAllErrors());
-            model.addAttribute("contacts", contactService.getAllContacts());
-            model.addAttribute("title", "The contacts list");
-            model.addAttribute("message", "Here you can see contacts list <br/> Spring.");
-            return "/home";
+    @RequestMapping(value = "/contact/{tel}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Contact> getcontact(@PathVariable("tel") int tel) {
+        System.out.println("Fetching contact with id " + tel);
+        Contact contact = contactService.getContact(tel + "");
+        if (contact == null) {
+            System.out.println("contact with tel " + tel + " not found");
+            return new ResponseEntity<Contact>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Contact>(contact, HttpStatus.OK);
+    }
+
+    //-------------------Create a contact--------------------------------------------------------
+
+    @RequestMapping(value = "/contact/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createcontact(@RequestBody Contact contact, UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating contact " + contact.getFirstName());
+
+       /* if (contactService.isContactExist(contact)) {
+            System.out.println("A contact with name " + contact.getFirstName() + " already exist");
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }*/
+
+        contactService.addContact(contact);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/contact/{tel}").buildAndExpand(contact.getTel()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+//------------------- Update a Contact --------------------------------------------------------
+
+    @RequestMapping(value = "/contact/{tel}", method = RequestMethod.PUT)
+    public ResponseEntity<Contact> updateContact(@PathVariable("tel") int tel, @RequestBody Contact contact) {
+        System.out.println("Updating Contact " + tel);
+
+        Contact currentContact = contactService.getContact(tel + "");
+        String oldTel = currentContact.getTel();
+
+        if (currentContact == null) {
+            System.out.println("Contact with tel " + tel + " not found");
+            return new ResponseEntity<Contact>(HttpStatus.NOT_FOUND);
         }
 
-        Contact c = new Contact(contact);
+        currentContact.setFirstName(contact.getFirstName());
+        currentContact.setLastName(contact.getLastName());
+        currentContact.setTel(contact.getTel());
 
-        System.out.println("--------" + result.getTarget().toString() + "-----------");
-        this.contactService.addContact(c);
-        return "redirect:/home";
+        contactService.updateContact(oldTel, currentContact);
+        return new ResponseEntity<Contact>(currentContact, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/contact/{tel}", method = RequestMethod.DELETE)
+    public ResponseEntity<Contact> deleteContact(@PathVariable("id") String tel) {
+        System.out.println("Fetching & Deleting Contact with id " + tel);
 
-    @RequestMapping(value = "/home")
-    public String index(ModelAndView mv, Model m) {
-        List<Contact> allContacts = contactService.getAllContacts();
-        m.addAttribute("title", "The contacts list");
-        m.addAttribute("message", "Here you can see contacts list <br/> Spring.");
-        m.addAttribute("contacts", allContacts);
-        mv.addObject("contacts", allContacts);
-        m.addAttribute("contact", new MappedContact());
-
-/*
-
-       contactService.sendMessege(1L,2L,"1");
-       contactService.sendMessege(2L,1L,"2 - testing");
-       contactService.sendMessege(1L,2L,"3");
-       contactService.sendMessege(2L,1L,"4 - testing");
-*/
-
-
-        return "/home";
-    }
-
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addContact(@ModelAttribute("contact") @Valid Contact contact, BindingResult result, Model model) {
-        final BindException errors = new BindException(contact, "contact");
-
-
-        if (result.hasErrors()) {
-            System.out.println("errors-in-form");
-            return "redirect:/home";
-        }
-        System.out.println("--------" + result.getTarget().toString() + "-----------");
-        this.contactService.addContact(contact);
-        return "redirect:/home/";
+        Contact contact = contactService.getContact(tel);
+        if (contact == null) {
+            System.out.println("Unable to delete. Contact with id " + tel + " not found");
+            return new ResponseEntity<Contact>(HttpStatus.NOT_FOUND);
         }
 
-
-
-    @RequestMapping(value = "/delete/{tel}")
-    public String deleteContact(@PathVariable("tel") String tel, Model model) {
-        System.out.println("!");
-        System.out.println(tel);
-        System.out.println("--------  " + "  -----------");
-        this.contactService.deleteContact(tel);
-
-        return "redirect:/home";
-    }
-
-    @RequestMapping(value = "/edit/{tel}")
-    public ModelAndView rederictContact(@PathVariable("tel") String tel, ModelAndView mv) {
-
-        System.out.println("--------  " + "editing  -----------  " + tel + " ---");
-        Contact contact = new Contact();
-        if (contactService.getContact(tel) != null) {
-            contact = contactService.getContact(tel);
-        }
-        MappedContact mappedContact = new MappedContact();
-        mappedContact.setFirstName(contact.getFirstName());
-        mappedContact.setLastName(contact.getLastName());
-        mappedContact.setTel(contact.getTel());
-
-        mv.addObject("title", "The contacts list");
-        mv.addObject("theContact", mappedContact);
-        mv.addObject("contacts", contactService.getAllContacts());
-        mv.setViewName("editContact");
-
-        return mv;
-
+        contactService.deleteContact(tel);
+        return new ResponseEntity<Contact>(HttpStatus.NO_CONTENT);
     }
 
 
-    @RequestMapping(value = "/doEdit/{Contact.tel}", method = RequestMethod.POST)
-    public String doEdit(@ModelAttribute("contact") MappedContact contact, @PathVariable("Contact.tel") String oldTel, ModelAndView mv, BindingResult result) {
+    //------------------- Delete All Contacts --------------------------------------------------------
 
+    @RequestMapping(value = "/contact/", method = RequestMethod.DELETE)
+    public ResponseEntity<Contact> deleteAllContacts() {
+        System.out.println("Deleting All Contacts");
 
-        System.out.println(oldTel + contact.toString());
-        contactService.updateContact(oldTel, contact);
-        mv.addObject("title", "The contacts list");
-        mv.addObject("theContact", contact);
-        mv.addObject("contacts", contactService.getAllContacts());
-        mv.setViewName("home");
-
-        return "redirect:/home";
+        contactService.getAllContacts();
+        return new ResponseEntity<Contact>(HttpStatus.NO_CONTENT);
     }
-
-
-
 
 }

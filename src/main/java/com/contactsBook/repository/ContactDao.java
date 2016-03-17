@@ -1,6 +1,7 @@
 package com.contactsBook.repository;
 
 import com.contactsBook.entity.MappedContact;
+import com.contactsBook.models.Contact;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface ContactDao {
 
     MappedContact removeContact(String tel);
 
-    void update(String oldTel, MappedContact mappedContact);
+    void update(String oldTel, Contact mappedContact);
 
     MappedContact getContact(String tel);
 

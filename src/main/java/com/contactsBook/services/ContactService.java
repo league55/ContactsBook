@@ -1,6 +1,5 @@
 package com.contactsBook.services;
 
-import com.contactsBook.entity.MappedContact;
 import com.contactsBook.entity.MappedMessege;
 import com.contactsBook.models.Contact;
 
@@ -16,7 +15,7 @@ public interface ContactService {
 
     Contact getContact(Long id);
 
-    void updateContact(String tel, MappedContact contact);
+    void updateContact(String tel, Contact contact);
     List<Contact> getAllContacts();
 
     String sendMessege(Long acceptorId, Long senderId, String content);

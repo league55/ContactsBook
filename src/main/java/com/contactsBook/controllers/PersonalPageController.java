@@ -34,9 +34,7 @@ public class PersonalPageController {
         senders.remove(contactService.getContact(recieverId));
         mv.addObject("senders", senders);
 
-        //contactService.sendMessege(0L,1L,"Hello");
-        //  contactService.sendMessege(1L,0L,"Hi");
-        // contactService.sendMessege(0L,1L,"Whats up?");
+
         if (senderIdS.equals("")) {
             List<MappedMessege> messeges = contactService.getAllMsg(recieverId);
             Collections.sort(messeges);

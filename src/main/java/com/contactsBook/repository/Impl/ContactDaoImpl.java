@@ -1,6 +1,7 @@
 package com.contactsBook.repository.Impl;
 
 import com.contactsBook.entity.MappedContact;
+import com.contactsBook.models.Contact;
 import com.contactsBook.repository.ContactDao;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
@@ -54,10 +55,11 @@ public class ContactDaoImpl implements ContactDao {
         return mp;
     }
 
-    public void update(String oldTel, MappedContact mappedContact) {
+    public void update(String oldTel, Contact mappedContact) {
         String newFirstName = mappedContact.getFirstName();
         String newLastName = mappedContact.getLastName();
         String newTel = mappedContact.getTel();
+
         MappedContact oldContact = getContact(oldTel);
         if ((newFirstName != null) && (!newFirstName.trim().equals(""))) oldContact.setFirstName(newFirstName);
         if ((newLastName != null) && (!newLastName.trim().equals(""))) oldContact.setLastName(newLastName);
