@@ -9,13 +9,13 @@ public interface ContactService {
 
     void addContact(Contact contact);
 
-    void deleteContact(String tel);
+    void deleteContact(Long id);
 
     Contact getContact(String tel);
 
     Contact getContact(Long id);
 
-    void updateContact(String tel, Contact contact);
+    void updateContact(Contact contact);
     List<Contact> getAllContacts();
 
     String sendMessege(Long acceptorId, Long senderId, String content);

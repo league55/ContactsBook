@@ -28,8 +28,8 @@ myApp.factory('ContactService', ['$http', '$q', function ($http, $q) {
                 );
         },
 
-        updateContact: function (contact, tel) {
-            return $http.put('/contact/' + tel, contact)
+        updateContact: function (contact, id) {
+            return $http.put('/contact/' + id, contact)
                 .then(
                     function (response) {
                         return response.data;
@@ -41,8 +41,8 @@ myApp.factory('ContactService', ['$http', '$q', function ($http, $q) {
                 );
         },
 
-        deleteUser: function (tel) {
-            return $http.delete('/contact/' + tel)
+        deleteContact: function (id) {
+            return $http.delete('/contact/' + id)
                 .then(
                     function (response) {
                         return response.data;

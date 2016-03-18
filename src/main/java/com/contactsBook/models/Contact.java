@@ -12,6 +12,17 @@ public class Contact{
 
     private Long id;
 
+    public Contact() {
+    }
+
+    public Contact(MappedContact mp) {
+
+        this.setFirstName(mp.getFirstName());
+        this.setLastName(mp.getLastName());
+        this.setTel(mp.getTel());
+        this.setId(mp.getContact_id());
+    }
+
     public Long getId() {
         return id;
     }
@@ -44,17 +55,6 @@ public class Contact{
         this.tel = tel;
     }
 
-    public Contact() {
-    }
-
-    public Contact(MappedContact mp) {
-
-        this.setFirstName(mp.getFirstName());
-        this.setLastName(mp.getLastName());
-        this.setTel(mp.getTel());
-        this.setId(mp.getContact_id());
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,6 +84,7 @@ public class Contact{
                 "tel='" + tel + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

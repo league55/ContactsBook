@@ -20,27 +20,27 @@ myApp.controller('ContactController', ['$scope', 'ContactService', function ($sc
     self.createContact = function (contact) {
         ContactService.createContact(contact)
             .then(
-                self.fetchAllUsers,
+                self.fetchAllContacts,
                 function (errResponse) {
                     console.error('Error while creating User.');
                 }
             );
     };
 
-    self.updateContact = function (contact, tel) {
-        ContactService.updateContact(contact, tel)
+    self.updateContact = function (contact, id) {
+        ContactService.updateContact(contact, id)
             .then(
-                self.fetchAllUsers,
+                self.fetchAllContacts,
                 function (errResponse) {
                     console.error('Error while updating User.');
                 }
             );
     };
 
-    self.deleteContact = function (id) {
-        ContactService.deleteContact(id)
+    self.deleteContact = function (tel) {
+        ContactService.deleteContact(tel)
             .then(
-                self.fetchAllUsers,
+                self.fetchAllContacts,
                 function (errResponse) {
                     console.error('Error while deleting User.');
                 }
@@ -50,32 +50,33 @@ myApp.controller('ContactController', ['$scope', 'ContactService', function ($sc
     self.fetchAllContacts();
 
     self.submit = function () {
-        if (self.contact.tel === null) {
+        console.log(self.contact.id + "id ");
+        if (self.contact.id === null) {
             console.log('Saving New Contact', self.contact);
             self.createContact(self.contact);
         } else {
-            self.updateContact(self.contact, self.contact.tel);
-            console.log('Contact updated with id ', self.contact.tel);
+            self.updateContact(self.contact, self.contact.id);
+            console.log('Contact updated with id ', self.contact.id);
         }
         self.reset();
     };
 
-    self.edit = function (tel) {
-        console.log('id to be edited', tel);
+    self.edit = function (id) {
+        console.log('id to be edited', id);
         for (var i = 0; i < self.contacts.length; i++) {
-            if (self.contacts[i].tel === tel) {
+            if (self.contacts[i].id === id) {
                 self.contact = angular.copy(self.contacts[i]);
                 break;
             }
         }
     };
 
-    self.remove = function (tel) {
-        console.log('id to be deleted', tel);
+    self.remove = function (id) {
+        console.log('id to be deleted', id);
         if (self.contact.id === id) {//clean form if the contact to be deleted is shown there.
             self.reset();
         }
-        self.deleteUser(tel);
+        self.deleteContact(id);
     };
 
 

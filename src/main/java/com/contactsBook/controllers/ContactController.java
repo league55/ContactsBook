@@ -70,37 +70,38 @@ public class ContactController extends WebMvcConfigurerAdapter {
 
 //------------------- Update a Contact --------------------------------------------------------
 
-    @RequestMapping(value = "/contact/{tel}", method = RequestMethod.PUT)
-    public ResponseEntity<Contact> updateContact(@PathVariable("tel") int tel, @RequestBody Contact contact) {
-        System.out.println("Updating Contact " + tel);
+    @RequestMapping(value = "/contact/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Contact> updateContact(@PathVariable("id") long id, @RequestBody Contact contact) {
+        System.out.println("Updating Contact " + id);
 
-        Contact currentContact = contactService.getContact(tel + "");
-        String oldTel = currentContact.getTel();
+        Contact currentContact = contactService.getContact(id);
+
 
         if (currentContact == null) {
-            System.out.println("Contact with tel " + tel + " not found");
+            System.out.println("Contact with id " + id + " not found");
             return new ResponseEntity<Contact>(HttpStatus.NOT_FOUND);
         }
 
         currentContact.setFirstName(contact.getFirstName());
         currentContact.setLastName(contact.getLastName());
         currentContact.setTel(contact.getTel());
+        currentContact.setId(contact.getId());
 
-        contactService.updateContact(oldTel, currentContact);
+        contactService.updateContact(currentContact);
         return new ResponseEntity<Contact>(currentContact, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/contact/{tel}", method = RequestMethod.DELETE)
-    public ResponseEntity<Contact> deleteContact(@PathVariable("id") String tel) {
-        System.out.println("Fetching & Deleting Contact with id " + tel);
+    @RequestMapping(value = "/contact/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Contact> deleteContact(@PathVariable("id") Long id) {
+        System.out.println("Fetching & Deleting Contact with id " + id);
 
-        Contact contact = contactService.getContact(tel);
+        Contact contact = contactService.getContact(id);
         if (contact == null) {
-            System.out.println("Unable to delete. Contact with id " + tel + " not found");
+            System.out.println("Unable to delete. Contact with id " + id + " not found");
             return new ResponseEntity<Contact>(HttpStatus.NOT_FOUND);
         }
 
-        contactService.deleteContact(tel);
+        contactService.deleteContact(id);
         return new ResponseEntity<Contact>(HttpStatus.NO_CONTENT);
     }
 

@@ -61,7 +61,12 @@
                         <div class="col-md-7">
                             <input type="text" ng-model="ctrl.contact.lastName" id="lastName"
                                    class="form-control input-sm"
-                                   placeholder="Enter your lastName. [This field is validation free]"/>
+                                   placeholder="Enter your lastName" required ng-minlength="3"/>
+                            <div class="has-error" ng-show="myForm.$dirty">
+                                <span ng-show="myForm.lastName.$error.required">This is a required field</span>
+                                <span ng-show="myForm.lastName.$error.minlength">Minimum length required is 3</span>
+                                <span ng-show="myForm.lastName.$invalid">This field is invalid </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,9 +76,10 @@
                         <label class="col-md-2 control-lable" for="tel">Phone</label>
                         <div class="col-md-7">
                             <input type="tel" ng-model="ctrl.contact.tel" id="tel" class="tel form-control input-sm"
-                                   placeholder="Enter your tel" required/>
+                                   placeholder="Enter your tel" required ng-minlength="5"/>
                             <div class="has-error" ng-show="myForm.$dirty">
                                 <span ng-show="myForm.tel.$error.required">This is a required field</span>
+                                <span ng-show="myForm.tel.$error.minlength">Minimum length required is 5</span>
                                 <span ng-show="myForm.tel.$invalid">This field is invalid </span>
                             </div>
                         </div>
@@ -82,7 +88,7 @@
 
                 <div class="row">
                     <div class="form-actions floatRight">
-                        <input type="submit" value="{{!ctrl.contact.tel ? 'Add' : 'Update'}}"
+                        <input type="submit" value="{{!ctrl.contact.id ? 'Add' : 'Update'}}"
                                class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
                         <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm"
                                 ng-disabled="myForm.$pristine">Reset Form
@@ -104,6 +110,7 @@
                     <th>Name</th>
                     <th>Last Name</th>
                     <th>Tel</th>
+                    <th>ID</th>
                     <th width="20%"></th>
                 </tr>
                 </thead>
@@ -113,10 +120,11 @@
                     <td><span ng-bind="c.firstName"></span></td>
                     <td><span ng-bind="c.lastName"></span></td>
                     <td><span ng-bind="c.tel"></span></td>
+                    <td><span ng-bind="c.id"></span></td>
                     <td>
-                        <button type="button" ng-click="ctrl.edit(c.tel)" class="btn btn-success custom-width">Edit
+                        <button type="button" ng-click="ctrl.edit(c.id)" class="btn btn-success custom-width">Edit
                         </button>
-                        <button type="button" ng-click="ctrl.remove(c.tel)" class="btn btn-danger custom-width">Remove
+                        <button type="button" ng-click="ctrl.remove(c.id)" class="btn btn-danger custom-width">Remove
                         </button>
                     </td>
                 </tr>
