@@ -1,8 +1,6 @@
-myApp.factory('ContactService', ['$http', '$q', function ($http, $q) {
+myApp.service('ContactService', ['$http', '$q', function ($http, $q) {
 
-    return {
-
-        fetchAllContacts: function () {
+    this.fetchAllContacts = function () {
             return $http.get('/contact/')
                 .then(
                     function (response) {
@@ -15,7 +13,7 @@ myApp.factory('ContactService', ['$http', '$q', function ($http, $q) {
                 );
         },
 
-        createContact: function (contact) {
+        this.createContact = function (contact) {
             return $http.post('/contact/', contact)
                 .then(
                     function (response) {
@@ -28,7 +26,7 @@ myApp.factory('ContactService', ['$http', '$q', function ($http, $q) {
                 );
         },
 
-        updateContact: function (contact, id) {
+        this.updateContact = function (contact, id) {
             return $http.put('/contact/' + id, contact)
                 .then(
                     function (response) {
@@ -41,7 +39,7 @@ myApp.factory('ContactService', ['$http', '$q', function ($http, $q) {
                 );
         },
 
-        deleteContact: function (id) {
+        this.deleteContact = function (id) {
             return $http.delete('/contact/' + id)
                 .then(
                     function (response) {
@@ -54,6 +52,5 @@ myApp.factory('ContactService', ['$http', '$q', function ($http, $q) {
                 );
         }
 
-    };
 
 }]);

@@ -75,7 +75,7 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-2 control-lable" for="tel">Phone</label>
                         <div class="col-md-7">
-                            <input type="tel" ng-model="ctrl.contact.tel" id="tel" class="tel form-control input-sm"
+                            <input type="text" ng-model="ctrl.contact.tel" id="tel" class="tel form-control input-sm"
                                    placeholder="Enter your tel" required ng-minlength="5"/>
                             <div class="has-error" ng-show="myForm.$dirty">
                                 <span ng-show="myForm.tel.$error.required">This is a required field</span>
@@ -138,10 +138,11 @@
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"/>
 <script type="text/javascript" src="/static/js/vendor/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="/static/js/vendor/angular.min.js"></script>
+<script type="text/javascript" src="/static/js/vendor/angular-resource.js"></script>
 <script type="text/javascript" src="/static/js/vendor/bootstrap.min.js"></script>
 <script src="<c:url value='/static/js/app.js' />"></script>
-<script src="<c:url value='/static/js/user_service.js' />"></script>
-<script src="<c:url value='/static/js/user_controller.js' />"></script>
+<script src="<c:url value='/static/js/factory.js' />"></script>
+<script src="<c:url value='/static/js/contact_controller.js' />"></script>
 
 
 </body>

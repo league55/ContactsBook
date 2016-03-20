@@ -39,12 +39,12 @@ public class ContactController extends WebMvcConfigurerAdapter {
 
     //-------------------Retrieve Single contact--------------------------------------------------------
 
-    @RequestMapping(value = "/contact/{tel}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Contact> getcontact(@PathVariable("tel") int tel) {
-        System.out.println("Fetching contact with id " + tel);
-        Contact contact = contactService.getContact(tel + "");
+    @RequestMapping(value = "/contact/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Contact> getcontact(@PathVariable("id") long id) {
+        System.out.println("Fetching contact with id " + id);
+        Contact contact = contactService.getContact(id);
         if (contact == null) {
-            System.out.println("contact with tel " + tel + " not found");
+            System.out.println("contact with tel " + id + " not found");
             return new ResponseEntity<Contact>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Contact>(contact, HttpStatus.OK);

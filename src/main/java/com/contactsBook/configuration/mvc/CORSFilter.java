@@ -18,7 +18,6 @@ public class CORSFilter implements Filter {
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with, Content-Type");
         chain.doFilter(req, res);
     }
-
     public void init(FilterConfig filterConfig) {
     }
 
