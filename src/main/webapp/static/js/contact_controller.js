@@ -1,5 +1,4 @@
 var myApp = angular.module('myApp');
-
 myApp.controller('ContactController', ['$scope', 'Contact', function ($scope, Contact) {
     var self = this;
     self.contact = new Contact();

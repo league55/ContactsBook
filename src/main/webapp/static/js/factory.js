@@ -1,6 +1,3 @@
-/**
- * Created by mixmax on 20.03.16.
- */
 var myApp = angular.module('myApp');
 
 myApp.factory('Contact', ['$resource', function ($resource) {
