@@ -57,7 +57,7 @@ public class ContactDaoImpl implements ContactDao {
         String newFirstName = mappedContact.getFirstName();
         String newLastName = mappedContact.getLastName();
         String newTel = mappedContact.getTel() + "";
-        Long id = mappedContact.getContact_id();
+        Long id = mappedContact.getId();
 
         MappedContact oldContact = getContact(id);
         if ((newFirstName != null) && (!newFirstName.trim().equals(""))) oldContact.setFirstName(newFirstName);

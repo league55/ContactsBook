@@ -38,7 +38,6 @@ public class ContactServiceImpl implements ContactService {
     public void addContact(Contact c) {
         MappedContact mappedContact = new MappedContact();
 
-
         mappedContact.setFirstName(c.getFirstName());
         mappedContact.setLastName(c.getLastName());
         mappedContact.setTel(c.getTel());
@@ -81,7 +80,7 @@ public class ContactServiceImpl implements ContactService {
         mappedContact.setFirstName(c.getFirstName());
         mappedContact.setLastName(c.getLastName());
         mappedContact.setTel(c.getTel());
-        mappedContact.setContact_id(c.getId());
+        mappedContact.setId(c.getId());
 
         contactDao.update(mappedContact);
     }

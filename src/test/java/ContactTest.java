@@ -28,7 +28,7 @@ public class ContactTest {
         mappedContact.setFirstName(firstName);
         mappedContact.setLastName(lastName);
         mappedContact.setTel(tel);
-        mappedContact.setContact_id(id);
+        mappedContact.setId(id);
 
         contact = new Contact();
         contact.setFirstName(firstName);

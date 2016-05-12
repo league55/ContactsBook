@@ -20,7 +20,7 @@ public class Contact{
         this.setFirstName(mp.getFirstName());
         this.setLastName(mp.getLastName());
         this.setTel(mp.getTel());
-        this.setId(mp.getContact_id());
+        this.setId(mp.getId());
     }
 
     public Long getId() {

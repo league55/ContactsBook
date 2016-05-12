@@ -18,7 +18,7 @@ public class MappedContact implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    private long contact_id;
+    private long id;
 
     @Size(max = 15, message = "Name must be shorter then 15 symbols")
     @NotEmpty(message = "Name cannot be empty")
@@ -36,13 +36,12 @@ public class MappedContact implements Serializable {
     private String tel;
 
 
-
-    public long getContact_id() {
-        return contact_id;
+    public long getId() {
+        return id;
     }
 
-    public void setContact_id(long contact_id) {
-        this.contact_id = contact_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -94,7 +93,7 @@ public class MappedContact implements Serializable {
     @Override
     public String toString() {
         return "MappedContact{" +
-                "contact_id=" + contact_id +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", tel='" + tel + '\'' +

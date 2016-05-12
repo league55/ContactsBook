@@ -42,7 +42,7 @@ public class TestContactRepository {
         cnt = contacts.get(0);
 
         mc = new MappedContact();
-        mc.setContact_id(cnt.getId());
+        mc.setId(cnt.getId());
         mc.setFirstName(cnt.getFirstName());
         mc.setLastName(cnt.getLastName());
         mc.setTel(cnt.getTel());

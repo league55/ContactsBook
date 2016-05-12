@@ -56,11 +56,6 @@ public class ContactController extends WebMvcConfigurerAdapter {
     public ResponseEntity<Void> createcontact(@RequestBody Contact contact, UriComponentsBuilder ucBuilder) {
         System.out.println("Creating contact " + contact.getFirstName());
 
-       /* if (contactService.isContactExist(contact)) {
-            System.out.println("A contact with name " + contact.getFirstName() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }*/
-
         contactService.addContact(contact);
 
         HttpHeaders headers = new HttpHeaders();

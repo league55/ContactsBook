@@ -42,15 +42,13 @@ public class MessegeDaoImpl implements MessegeDao {
         Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege WHERE mappedMessege.recieverId=:recieverid AND mappedMessege.senderId=:senderid");
         q.setParameter("recieverid", recieverId);
         q.setParameter("senderid", senderId);
+
         return q.getResultList();
     }
 
     public List<MappedMessege> getAllMsg(Long recieverId) {
         Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege");
-
-     /*   Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege WHERE mappedMessege.recieverid=:recieverid");
-        q.setParameter("recieverid", recieverId);
-     */
+ 
         return q.getResultList();
     }
 
