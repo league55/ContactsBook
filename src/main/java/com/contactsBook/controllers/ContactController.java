@@ -17,9 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
-/**
- *
- */
 @Controller
 public class ContactController extends WebMvcConfigurerAdapter {
 

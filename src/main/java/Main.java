@@ -12,10 +12,7 @@ public class Main {
         cs.addContact(contact);
         MappedContact contact2 = new MappedContact("Maximas", "Rudenko", "012ss92");
         cs.addContact(contact2);
-
-
-
-    }
+     }
 */
 }
 

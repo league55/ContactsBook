@@ -102,7 +102,7 @@ public class ContactDaoImpl implements ContactDao {
 
 
     public List<MappedContact> getAllContacts() {
-        return em.createQuery("SELECT mappedContact FROM MappedContact mappedContact").getResultList();
+        return em.createQuery("SELECT mappedContact FROM MappedContact mappedContact", MappedContact.class).getResultList();
     }
 
 

@@ -7,8 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -36,6 +34,8 @@ public class EntityConfig {
     private String username;
     @Value("${spring.datasource.password}")
     private String password;
+    @Value("spring.jpa.show-sql")
+    private String showSQL;
 
  @Bean
     public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
@@ -79,7 +79,7 @@ public class EntityConfig {
 
     private Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.show_sql", Boolean.valueOf(showSQL));
         properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;
     }

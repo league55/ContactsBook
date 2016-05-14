@@ -1,6 +1,6 @@
 package com.contactsBook.repository;
 
-import com.contactsBook.entity.MappedMessege;
+import com.contactsBook.models.Contact;
 import com.contactsBook.models.Messege;
 
 import java.util.List;
@@ -10,9 +10,10 @@ public interface MessegeDao {
 
     void storeMessege(Messege m);
 
-    List<MappedMessege> getConversation(Long recieverId, Long senderId);
+    List<Messege> getConversation(Contact reciever, Contact sender);
 
-    List<MappedMessege> getAllMsg(Long recieverId);
+    List<Messege> getAllMsg(Contact reciever);
 
 
+    Messege deleteMessege(Long id);
 }

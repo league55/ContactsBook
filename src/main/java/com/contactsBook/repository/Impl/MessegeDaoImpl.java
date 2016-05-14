@@ -1,6 +1,8 @@
 package com.contactsBook.repository.Impl;
 
+import com.contactsBook.entity.MappedContact;
 import com.contactsBook.entity.MappedMessege;
+import com.contactsBook.models.Contact;
 import com.contactsBook.models.Messege;
 import com.contactsBook.repository.ContactDao;
 import com.contactsBook.repository.MessegeDao;
@@ -10,11 +12,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mixmax on 06.02.16.
- */
 @Repository
 public class MessegeDaoImpl implements MessegeDao {
 
@@ -29,29 +29,66 @@ public class MessegeDaoImpl implements MessegeDao {
     public void storeMessege(Messege m) {
         MappedMessege mm = new MappedMessege();
 
+        MappedContact sender = contactToMappedContact(m.getSender());
+        MappedContact reciever = contactToMappedContact(m.getReciever());
+
         mm.setTime(m.getTime());
         mm.setContent(m.getContent());
-        mm.setRecieverId(m.getRecieverID());
-        mm.setSenderId(m.getSenderId());
+        mm.setReciever(reciever);
+        mm.setSender(sender);
+
         em.persist(mm);
+
     }
 
 
-    public List<MappedMessege> getConversation(Long recieverId, Long senderId) {
+    public List<Messege> getConversation(Contact reciever, Contact sender) {
 
-        Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege WHERE mappedMessege.recieverId=:recieverid AND mappedMessege.senderId=:senderid");
-        q.setParameter("recieverid", recieverId);
-        q.setParameter("senderid", senderId);
+        Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege WHERE mappedMessege.reciever=:reciever AND mappedMessege.sender=:sender");
+        q.setParameter("reciever", reciever);
+        q.setParameter("sender", sender);
 
-        return q.getResultList();
+        List<Messege> messeges = new ArrayList<Messege>();
+        for (Object mm : q.getResultList()) {
+            messeges.add(new Messege((MappedMessege) mm));
+        }
+
+        return messeges;
     }
 
-    public List<MappedMessege> getAllMsg(Long recieverId) {
+    public List<Messege> getAllMsg(Contact reciever) {
+        MappedContact mappedReciever = contactToMappedContact(reciever);
+        //TODO: must use reciever;
         Query q = em.createQuery("SELECT mappedMessege FROM MappedMessege mappedMessege");
- 
-        return q.getResultList();
+
+        List<Messege> messeges = new ArrayList<Messege>();
+        for (Object mm : q.getResultList()) {
+            messeges.add(new Messege((MappedMessege) mm));
+        }
+
+        return messeges;
+    }
+
+    public Messege deleteMessege(Long id) {
+        MappedMessege mappedMessege;
+
+        mappedMessege = (MappedMessege) em.createQuery("SELECT mappedMessege " +
+                "FROM MappedMessege mappedMessege where mappedMessege.id=" + id)
+                .setParameter("id", id)
+                .getSingleResult();
+        em.remove(mappedMessege);
+
+        return new Messege(mappedMessege);
     }
 
 
+    private MappedContact contactToMappedContact(Contact c) {
+        MappedContact mc = new MappedContact();
+        mc.setFirstName(c.getFirstName());
+        mc.setLastName(c.getLastName());
+        mc.setTel(c.getTel());
+        mc.setId(c.getId());
+        return mc;
+    }
 }
 

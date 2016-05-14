@@ -1,7 +1,6 @@
 package com.contactsBook.services.Impl;
 
 import com.contactsBook.entity.MappedContact;
-import com.contactsBook.entity.MappedMessege;
 import com.contactsBook.models.Contact;
 import com.contactsBook.models.Messege;
 import com.contactsBook.repository.ContactDao;
@@ -16,9 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by mixmax on 05.12.15.
- */
 @Service
 public class ContactServiceImpl implements ContactService {
 
@@ -29,9 +25,6 @@ public class ContactServiceImpl implements ContactService {
     private ContactDao contactDao;
     @Autowired
     private MessegeDao messegeDao;
-    private int MAX_CONTACTS_NUM; //should be final
-    private List<MappedContact> base = new ArrayList<MappedContact>();
-
 
 
     @Transactional
@@ -99,53 +92,31 @@ public class ContactServiceImpl implements ContactService {
         return contacts;
     }
 
-
-
-    public String toString() {
-        Object[] array = base.toArray();
-
-        String s = "";
-        for (Object c : array) {
-            s = s + c.toString() + "\n";
-        }
-        return s;
-    }
-
     @Transactional
-    public String sendMessege(Long recieverId, Long senderId, String content) {
+    public String sendMessege(Contact reciever, Contact sender, String content) {
         Messege m = new Messege();
-        m.setSenderId(senderId);
-        m.setRecieverID(recieverId);
+        m.setSender(sender);
+        m.setReciever(reciever);
         m.setTime(new Date());
         m.setContent(content);
 
         messegeDao.storeMessege(m);
-        return m.getContent();
+        return m.getContent() + " " + m.getTime();
+    }
+
+    public Messege deleteMessege(Long id) {
+        return messegeDao.deleteMessege(id);
     }
 
     @Transactional(readOnly = true)
-    public List<MappedMessege> getConversation(Long resieverId, Long senderId) {
-
-
-        List<MappedMessege> toReturn = messegeDao.getConversation(resieverId, senderId);
-
-        return toReturn;
+    public List<Messege> getConversation(Contact reciever, Contact sender) {
+        return messegeDao.getConversation(reciever, sender);
     }
 
     @Transactional(readOnly = true)
-    public List<MappedMessege> getAllMsg(Long recieverId) {
-        return messegeDao.getAllMsg(recieverId);
-    }
-    public void setMAX_CONTACTS_NUM(int MAX_CONTACTS_NUM) {
-        this.MAX_CONTACTS_NUM = MAX_CONTACTS_NUM;
+    public List<Messege> getAllMsg(Contact reciever) {
+        return messegeDao.getAllMsg(reciever);
     }
 
-    public List<MappedContact> getBase() {
-        return base;
-    }
-
-    public void setBase(List<MappedContact> base) {
-        this.base = base;
-    }
 
 }

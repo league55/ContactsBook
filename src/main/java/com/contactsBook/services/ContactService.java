@@ -1,7 +1,7 @@
 package com.contactsBook.services;
 
-import com.contactsBook.entity.MappedMessege;
 import com.contactsBook.models.Contact;
+import com.contactsBook.models.Messege;
 
 import java.util.List;
 
@@ -18,9 +18,11 @@ public interface ContactService {
     void updateContact(Contact contact);
     List<Contact> getAllContacts();
 
-    String sendMessege(Long acceptorId, Long senderId, String content);
+    String sendMessege(Contact reciever, Contact sender, String content);
 
-    List<MappedMessege> getConversation(Long acceptorId, Long senderId);
+    Messege deleteMessege(Long id);
 
-    List<MappedMessege> getAllMsg(Long recieverId);
+    List<Messege> getConversation(Contact reciever, Contact sender);
+
+    List<Messege> getAllMsg(Contact reciever);
 }
