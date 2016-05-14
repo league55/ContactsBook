@@ -64,8 +64,7 @@ public class Contact{
 
         if (firstName != null ? !firstName.equals(contact.firstName) : contact.firstName != null) return false;
         if (lastName != null ? !lastName.equals(contact.lastName) : contact.lastName != null) return false;
-        if (tel != null ? !tel.equals(contact.tel) : contact.tel != null) return false;
-        return id != null ? id.equals(contact.id) : contact.id == null;
+        return tel != null ? tel.equals(contact.tel) : contact.tel == null;
 
     }
 
@@ -74,7 +73,6 @@ public class Contact{
         int result = firstName != null ? firstName.hashCode() : 0;
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (tel != null ? tel.hashCode() : 0);
-        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
 
